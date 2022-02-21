@@ -6,19 +6,16 @@
  </head>
 <body ng-app ng-controller="InlineEditorController">
 <div id="main" ng-click="hideTooltip()">
-
 <div class="tooltip" ng-click="$event.stopPropagation()" 
 ng-show="showtooltip">
-
- <input type="text" ng-model="value" />
- </div>
-
+<input type="text" ng-model="value" />
+</div>
 <p ng-click="toggleTooltip($event)">{{value}}</p>
- </div>
+</div>
 <script 
 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"> 
 </script>
- <script >
+<script >
    function InlineEditorController($scope){ 
 
  $scope.showtooltip = false; 
@@ -31,6 +28,6 @@ src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js">
  $scope.showtooltip = !$scope.showtooltip; 
  } 
 }
- </script>
- </body>
+</script>
+</body>
 </html>
