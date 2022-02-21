@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app="myApp">
+ <head>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/ 
+angular.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/ 
+angular-route.min.js"></script>
+ </head>
+<body>
+ <script type="text/ng-template" id="pages/home.html">
+ <h1>Home</h1>
+<h3>{{message}}</h3>
+ </script>
+<script type="text/ng-template" id="pages/courses.html">
+ <h1>Courses</h1>
+<h3>{{message}}</h3>
+ </script>
+<script type="text/ng-template" id="pages/contactus.html">
+ <h1>Contact Us</h1>
+<h3>{{message}}</h3>
+ </script>
+<a href="#/">Home</a>
+ <a href="#/courses">Courses</a>
+ <a href="#/contactus">Contact Us</a>
+ <div ng-view></div>
+ <script src="app.js">
+  var app = angular.module('myApp', ['ngRoute']); 
+app.config(function($routeProvider) { 
+ $routeProvider 
+ .when('/', { 
+ templateUrl : 'pages/home.html', 
+ controller : 'HomeController'
+ }) 
+ .when('/courses', { 
+ templateUrl : 'pages/courses.html', 
+ controller : 'CoursesController'
+ }) 
+ .when('/contactus', { 
+ templateUrl : 'pages/contactus.html', 
+ controller : 'ContactUsController'
+ }) 
+ .otherwise({redirectTo: '/'}); 
+}); 
+app.controller('HomeController', function($scope) { 
+ $scope.message = 'Welcome to REC'; 
+}); 
+app.controller('CoursesController', function($scope) { 
+ $scope.message = 'AERO, AUTO, BIOMED, BIOTECH, CHEMICAL, CIVIL, CSE, CSBC, 
+ECE, EEE, FT, IT, MCT, MECH'; 
+}); 
+app.controller('ContactUsController', function($scope) { 
+ $scope.message = 'Rajalakshmi Nagar, Thandalam, Chennai - 602 105'; 
+});
+  </script>
+ </body>
+</html>
