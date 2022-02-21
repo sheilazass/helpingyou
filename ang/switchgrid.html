@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="utf-8"/>
+ <title>Learn AngularJS - Switchable Grid</title>
+ <link href="http://fonts.googleapis.com/css?family=Cookie|Open+Sans: 
+400,700" rel="stylesheet" />
+ <!-- The main CSS file -->
+<link href="style.css" rel="stylesheet" />
+
+ </head>
+<body ng-app="switchableGrid" ng-controller="SwitchableGridController">
+ <div class="bar">
+
+ <a href="#" class="list-icon" ng-class = 
+"{active: layout == 'list'}" ng-click="layout = 'list'"></a>
+ <a href="#" class="grid-icon" ng-class = 
+"{active: layout == 'grid'}" ng-click="layout = 'grid'"></a>
+ </div>
+
+<ul ng-show="layout == 'grid'" class="grid">
+<li ng-repeat="p in pics">
+ <a href="{{p.link}}" target="_blank"> 
+<img ng-src="{{p.images.low_resolution.url}}" /></a>
+ </li>
+ </ul>
+<ul ng-show="layout == 'list'" class="list">
+<li ng-repeat="p in pics">
+ <a href="{{p.link}}" target="_blank"> 
+<img ng-src="{{p.images.thumbnail.url}}" /></a>
+ <p>{{p.caption.text}}</p>
+ </li>
+ </ul>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.
+js"></script>
+Department of Computer Science and Engineering | Rajalakshmi Engineering College 129
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angularresource.min.js"></script>
+ <script>
+
+var app = angular.module("switchableGrid", ['ngResource']); 
+app.factory('instagram', function($resource){ 
+ return { 
+ fetchPopular: function(callback){ 
+
+var api = $resource('https://api.instagram.com/v1/media/popular?client_id=:clie
+nt_id&callback=JSON_CALLBACK',{ 
+client_id: '642176ece1e7445e99244cec26f4de1f'
+},{ 
+
+fetch:{method:'JSONP'} 
+ }); 
+ api.fetch(function(response){ 
+ // Call the supplied callback function
+ callback(response.data); 
+}); 
+} 
+ } 
+}); 
+
+function SwitchableGridController($scope, instagram){ 
+
+ $scope.layout = 'grid'; 
+ $scope.pics = []; 
+ // Use the instagram service and fetch a list of the popular pics
+ instagram.fetchPopular(function(data){ 
+
+ $scope.pics = data; 
+ }); 
+}
+  </script>
+ </body>
+</html>
